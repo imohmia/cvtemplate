@@ -2,7 +2,7 @@
 <html lang="en" data-theme="ocean" data-layout="modern">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=1024, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=1024, initial-scale=0.8, minimum-scale=0.3, maximum-scale=3.0, user-scalable=yes" />
   <title>CV</title>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -2419,7 +2419,7 @@
     @media print {
       @page {
         size: A4;
-        margin: 8mm;
+        margin: 15mm;
         /* Remove browser default headers/footers */
         @top-left { content: ""; }
         @top-center { content: ""; }
@@ -2433,8 +2433,8 @@
         background: white !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        font-size: 10pt !important;
-        line-height: 1.3 !important;
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
       }
 
       /* Hide unwanted elements */
@@ -2467,31 +2467,31 @@
       .cv {
         margin: 0 !important;
         padding: 0 !important;
-        font-size: 9pt !important;
-        line-height: 1.25 !important;
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
       }
 
       .accent-bar::after {
         display: none;
       }
 
-      /* Flexible pagination - allow individual items to break across pages */
+      /* Better spacing for A4 page */
       .section {
-        margin-bottom: 4mm !important;
+        margin-bottom: 6mm !important;
         padding: 0 !important;
         page-break-inside: auto !important; /* Allow sections to break naturally */
       }
 
       .section-title {
-        font-size: 11pt !important;
-        margin-bottom: 2mm !important;
-        padding: 1mm 0 !important;
+        font-size: 12pt !important;
+        margin-bottom: 3mm !important;
+        padding: 2mm 0 !important;
         page-break-after: avoid !important; /* Keep title with following content */
       }
 
       .timeline-item {
         page-break-inside: auto !important; /* Allow items to break if needed */
-        margin-bottom: 3mm !important;
+        margin-bottom: 4mm !important;
         padding: 0 !important;
         orphans: 2 !important; /* Minimum 2 lines at bottom of page */
         widows: 2 !important; /* Minimum 2 lines at top of page */
@@ -2499,26 +2499,26 @@
 
       .card {
         page-break-inside: auto !important; /* Allow cards to break if needed */
-        margin-bottom: 2mm !important;
-        padding: 2mm !important;
+        margin-bottom: 3mm !important;
+        padding: 3mm !important;
         orphans: 2 !important;
         widows: 2 !important;
       }
 
       .photo-container {
-        width: 30mm !important;
-        height: 30mm !important;
+        width: 35mm !important;
+        height: 35mm !important;
       }
 
       .photo {
-        width: 30mm !important;
-        height: 30mm !important;
+        width: 35mm !important;
+        height: 35mm !important;
       }
 
       /* Compact sidebar */
       /* Layout-specific content padding */
       
-      /* Two-column layouts padding */
+      /* Two-column layouts padding - better spacing for A4 */
       [data-layout="default"] .sidebar,
       [data-layout="professional"] .sidebar,
       [data-layout="modern"] .sidebar,
@@ -2527,7 +2527,7 @@
       [data-layout="creative"] .sidebar,
       [data-layout="split"] .sidebar,
       [data-layout="elegant"] .sidebar {
-        padding: 4mm 8mm 0 4mm !important;
+        padding: 6mm 10mm 0 6mm !important;
         margin: 0 !important;
       }
 
@@ -2539,42 +2539,42 @@
       [data-layout="creative"] .main-content,
       [data-layout="split"] .main-content,
       [data-layout="elegant"] .main-content {
-        padding: 4mm 4mm 0 12mm !important;
+        padding: 6mm 6mm 0 14mm !important;
         margin: 0 !important;
       }
 
-      /* Single-column layouts padding */
+      /* Single-column layouts padding - better spacing */
       [data-layout="timeline"] .main-content,
       [data-layout="clean"] .main-content,
       [data-layout="academic"] .main-content {
-        padding: 4mm !important;
+        padding: 6mm !important;
         margin: 0 !important;
       }
 
-      /* Compact text */
+      /* Better sized text for A4 readability */
       .name {
-        font-size: 16pt !important;
-        margin: 0 0 1mm 0 !important;
+        font-size: 18pt !important;
+        margin: 0 0 2mm 0 !important;
       }
 
       .title {
-        font-size: 11pt !important;
-        margin: 0 0 3mm 0 !important;
+        font-size: 12pt !important;
+        margin: 0 0 4mm 0 !important;
       }
 
       .job-title, .card-title {
-        font-size: 10pt !important;
-        margin: 0 0 1mm 0 !important;
+        font-size: 11pt !important;
+        margin: 0 0 2mm 0 !important;
       }
 
       .job-meta, .card-subtitle, .card-meta {
-        font-size: 8pt !important;
-        margin: 0 0 1mm 0 !important;
+        font-size: 9pt !important;
+        margin: 0 0 2mm 0 !important;
       }
 
       .job-desc, .card-desc {
-        font-size: 9pt !important;
-        margin: 0 0 2mm 0 !important;
+        font-size: 10pt !important;
+        margin: 0 0 3mm 0 !important;
       }
 
       /* Timeline and Experience formatting for print - flexible pagination */
