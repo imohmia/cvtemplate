@@ -1233,7 +1233,7 @@
         <div class="crop-controls">
           <div class="zoom-control">
             <span>🔍</span>
-            <input type="range" class="zoom-slider" id="zoomSlider" min="50" max="200" value="100" />
+            <input type="range" class="zoom-slider" id="zoomSlider" min="1" max="500" value="100" />
             <span>🔍+</span>
           </div>
           <span style="font-size: 11px; color: var(--text-light);">Drag to reposition • Scroll to zoom</span>
@@ -1891,7 +1891,7 @@
     cropArea.addEventListener('wheel', (e) => {
       e.preventDefault();
       const delta = e.deltaY > 0 ? -0.1 : 0.1;
-      currentScale = Math.max(0.5, Math.min(3, currentScale + delta));
+      currentScale = Math.max(0.25, Math.min(5, currentScale + delta));
       zoomSlider.value = currentScale * 100;
       updateImageTransform();
     });
