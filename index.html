@@ -2396,14 +2396,38 @@
       }
 
       /* Compact sidebar */
-      /* Add padding to move content away from edges */
-      .sidebar {
+      /* Layout-specific content padding */
+      
+      /* Two-column layouts padding */
+      [data-layout="default"] .sidebar,
+      [data-layout="professional"] .sidebar,
+      [data-layout="modern"] .sidebar,
+      [data-layout="compact"] .sidebar,
+      [data-layout="executive"] .sidebar,
+      [data-layout="creative"] .sidebar,
+      [data-layout="split"] .sidebar,
+      [data-layout="elegant"] .sidebar {
         padding: 4mm 8mm 0 4mm !important;
         margin: 0 !important;
       }
 
-      .main-content {
+      [data-layout="default"] .main-content,
+      [data-layout="professional"] .main-content,
+      [data-layout="modern"] .main-content,
+      [data-layout="compact"] .main-content,
+      [data-layout="executive"] .main-content,
+      [data-layout="creative"] .main-content,
+      [data-layout="split"] .main-content,
+      [data-layout="elegant"] .main-content {
         padding: 4mm 4mm 0 12mm !important;
+        margin: 0 !important;
+      }
+
+      /* Single-column layouts padding */
+      [data-layout="timeline"] .main-content,
+      [data-layout="clean"] .main-content,
+      [data-layout="academic"] .main-content {
+        padding: 4mm !important;
         margin: 0 !important;
       }
 
@@ -2480,11 +2504,80 @@
         margin: 0 0 1mm 0 !important;
       }
 
-      /* Force compact layout for all themes */
-      .cv {
+      /* Layout-specific print styles */
+      
+      /* Two-column layouts (default, professional, modern) */
+      [data-layout="default"] .cv,
+      [data-layout="professional"] .cv,
+      [data-layout="modern"] .cv {
         display: grid !important;
         grid-template-columns: 60mm 1fr !important;
         gap: 8mm !important;
+      }
+
+      /* Timeline layout - keep original structure */
+      [data-layout="timeline"] .cv {
+        display: block !important;
+        grid-template-columns: none !important;
+      }
+
+      [data-layout="timeline"] .main-content {
+        padding: 4mm !important;
+      }
+
+      /* Clean layout - single column */
+      [data-layout="clean"] .cv {
+        display: block !important;
+        grid-template-columns: none !important;
+      }
+
+      [data-layout="clean"] .main-content {
+        padding: 4mm !important;
+      }
+
+      /* Compact layout - tighter grid */
+      [data-layout="compact"] .cv {
+        display: grid !important;
+        grid-template-columns: 55mm 1fr !important;
+        gap: 6mm !important;
+      }
+
+      /* Executive layout - wider sidebar */
+      [data-layout="executive"] .cv {
+        display: grid !important;
+        grid-template-columns: 70mm 1fr !important;
+        gap: 10mm !important;
+      }
+
+      /* Creative layout - flexible grid */
+      [data-layout="creative"] .cv {
+        display: grid !important;
+        grid-template-columns: 65mm 1fr !important;
+        gap: 8mm !important;
+      }
+
+      /* Split layout - equal columns */
+      [data-layout="split"] .cv {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8mm !important;
+      }
+
+      /* Elegant layout - refined grid */
+      [data-layout="elegant"] .cv {
+        display: grid !important;
+        grid-template-columns: 62mm 1fr !important;
+        gap: 9mm !important;
+      }
+
+      /* Academic layout - traditional structure */
+      [data-layout="academic"] .cv {
+        display: block !important;
+        grid-template-columns: none !important;
+      }
+
+      [data-layout="academic"] .main-content {
+        padding: 4mm !important;
       }
 
       /* Minimal layout adjustments */
