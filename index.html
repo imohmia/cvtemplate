@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ...existing code... */
     /* =========================================================
        MODERN GRADIENT THEME SYSTEM
     ========================================================= */
@@ -89,6 +90,159 @@
       --pill-border: rgba(0, 210, 255, 0.4);
     }
 
+    /* ...existing layout and style code... */
+
+    /* PHOTO CROPPER MODAL */
+    .photo-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .photo-modal.active {
+      display: flex;
+    }
+
+    .crop-container {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .crop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .crop-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .crop-close {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crop-area {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: #f8fafc;
+    }
+
+    .crop-image {
+      position: absolute;
+      max-width: none;
+      max-height: none;
+      cursor: move;
+      user-select: none;
+    }
+
+    .crop-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .zoom-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .zoom-slider {
+      width: 120px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      appearance: none;
+    }
+
+    .zoom-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      cursor: pointer;
+    }
+
+    .zoom-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      cursor: pointer;
+      border: none;
+    }
+
+    .crop-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .crop-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .crop-btn.primary {
+      background: var(--gradient-primary);
+      color: white;
+      border-color: transparent;
+    }
+
+    .crop-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+
+    /* ...rest of existing styles... */
+    
     /* =========================================================
        LAYOUT SYSTEM
     ========================================================= */
@@ -906,6 +1060,7 @@
       .hint,
       .remove-btn,
       .btn,
+      .photo-modal,
       header,
       footer,
       .no-print {
@@ -982,6 +1137,24 @@
         width: 28px;
         height: 20px;
       }
+
+      .photo-modal .crop-container {
+        width: 95%;
+        padding: 16px;
+      }
+
+      .crop-area {
+        height: 250px;
+      }
+
+      .crop-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .zoom-control {
+        justify-content: center;
+      }
     }
 
 /* Fix for invisible text while editing cards */
@@ -1043,6 +1216,34 @@
       
       <button id="reset" class="btn danger">🗑️ Reset</button>
       <button id="export" class="btn primary">📄 Export PDF</button>
+    </div>
+
+    <!-- Photo Cropper Modal -->
+    <div class="photo-modal" id="photoModal">
+      <div class="crop-container">
+        <div class="crop-header">
+          <h3 class="crop-title">Adjust Your Photo</h3>
+          <button class="crop-close" id="closeCrop">×</button>
+        </div>
+        
+        <div class="crop-area" id="cropArea">
+          <img class="crop-image" id="cropImage" />
+        </div>
+        
+        <div class="crop-controls">
+          <div class="zoom-control">
+            <span>🔍</span>
+            <input type="range" class="zoom-slider" id="zoomSlider" min="50" max="200" value="100" />
+            <span>🔍+</span>
+          </div>
+          <span style="font-size: 11px; color: var(--text-light);">Drag to reposition • Scroll to zoom</span>
+        </div>
+        
+        <div class="crop-actions">
+          <button class="crop-btn" id="cancelCrop">Cancel</button>
+          <button class="crop-btn primary" id="applyCrop">Apply</button>
+        </div>
+      </div>
     </div>
 
     <!-- CV Paper -->
@@ -1378,7 +1579,7 @@
     </div>
   </template>
 
-  <template id="educationTemplate">
+   <template id="educationTemplate">
     <div class="card removable">
       <h3 class="card-title" data-editable contenteditable="true">Degree Title</h3>
       <div class="card-subtitle" data-editable contenteditable="true">Institution Name</div>
@@ -1391,10 +1592,12 @@
   <script>
     // Global variables
     let isEditing = true;
-    const STORAGE_KEY = 'modern_cv_data_v7';
-    const THEME_KEY = 'modern_cv_theme_v7';
-    const LAYOUT_KEY = 'modern_cv_layout_v7';
-    const PHOTO_KEY = 'modern_cv_photo_v7';
+    let editing = true;
+    let isDragging = false;
+    let currentScale = 1;
+    let currentX = 0;
+    let currentY = 0;
+    let originalImage = null;
 
     // DOM elements
     const cv = document.getElementById('cv');
@@ -1410,6 +1613,15 @@
     const themeColors = document.querySelectorAll('.theme-color');
     const layoutOptions = document.querySelectorAll('.layout-option');
 
+    // Photo cropper elements
+    const photoModal = document.getElementById('photoModal');
+    const cropImage = document.getElementById('cropImage');
+    const cropArea = document.getElementById('cropArea');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const closeCrop = document.getElementById('closeCrop');
+    const cancelCrop = document.getElementById('cancelCrop');
+    const applyCrop = document.getElementById('applyCrop');
+
     // Utility functions
     function debounce(func, wait) {
       let timeout;
@@ -1423,35 +1635,22 @@
       };
     }
 
+    // Modified save/load functions to NOT persist data
     function saveData() {
-      try {
-        localStorage.setItem(STORAGE_KEY, cv.innerHTML);
-      } catch (e) {
-        console.warn('Could not save data to localStorage');
-      }
+      // Intentionally empty - no saving to localStorage
+      console.log('Data save disabled - fresh start on every refresh');
     }
 
     function loadData() {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          cv.innerHTML = saved;
-          setupEditableElements();
-        }
+      // Only load themes, no content data
+      const savedTheme = localStorage.getItem('cv_theme') || 'ocean';
+      setTheme(savedTheme);
 
-        const savedPhoto = localStorage.getItem(PHOTO_KEY);
-        if (savedPhoto) {
-          photo.src = savedPhoto;
-        }
-
-        const savedTheme = localStorage.getItem(THEME_KEY) || 'ocean';
-        setTheme(savedTheme);
-
-        const savedLayout = localStorage.getItem(LAYOUT_KEY) || 'modern';
-        setLayout(savedLayout);
-      } catch (e) {
-        console.warn('Could not load data from localStorage');
-      }
+      const savedLayout = localStorage.getItem('cv_layout') || 'modern';
+      setLayout(savedLayout);
+      
+      // Don't load any content or photo data
+      console.log('Fresh template loaded - no persistent data');
     }
 
     function setupEditableElements() {
@@ -1470,7 +1669,7 @@
         color.classList.toggle('active', color.dataset.theme === themeName);
       });
       try {
-        localStorage.setItem(THEME_KEY, themeName);
+        localStorage.setItem('cv_theme', themeName);
       } catch (e) {
         console.warn('Could not save theme');
       }
@@ -1482,7 +1681,7 @@
         option.classList.toggle('active', option.dataset.layout === layoutName);
       });
       try {
-        localStorage.setItem(LAYOUT_KEY, layoutName);
+        localStorage.setItem('cv_layout', layoutName);
       } catch (e) {
         console.warn('Could not save layout');
       }
@@ -1497,7 +1696,7 @@
 
     function exportPDF() {
       // Hide all editing elements
-      const editingElements = document.querySelectorAll('.hint, .remove-btn, #controls .btn');
+      const editingElements = document.querySelectorAll('.hint, .remove-btn, #controls .btn, .photo-modal');
       editingElements.forEach(el => el.style.display = 'none');
       
       // Hide any potential header/footer elements
@@ -1526,6 +1725,9 @@
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
           }
+          .photo-modal {
+            display: none !important;
+          }
         }
       `;
       document.head.appendChild(printStyles);
@@ -1549,367 +1751,497 @@
     }
 
     function resetCV() {
-      if (confirm('Are you sure you want to reset the entire CV? This cannot be undone.')) {
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem(PHOTO_KEY);
-        localStorage.removeItem(THEME_KEY);
-        localStorage.removeItem(LAYOUT_KEY);
+      if (confirm('Are you sure you want to reset the entire CV? This will reload the page with fresh content.')) {
+        // Clear only theme/layout localStorage, keep fresh start behavior
+        localStorage.removeItem('cv_theme');
+        localStorage.removeItem('cv_layout');
         location.reload();
       }
     }
 
-// Add/Remove functions
-window.removeItem = function(btn) {
-  btn.closest('.removable').remove();
-  saveData();
-};
-
-window.addContact = function() {
-  const contactList = document.getElementById('contactList');
-  const newItem = document.createElement('li');
-  newItem.className = 'info-item removable';
-  newItem.innerHTML = `
-    <span class="info-icon">📧</span>
-    <span data-editable contenteditable="${isEditing}">New contact info</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>
-  `;
-  contactList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addSkill = function() {
-  const skillsList = document.getElementById('skillsList');
-  const newSkill = document.createElement('span');
-  newSkill.className = 'skill-pill removable';
-  newSkill.innerHTML = `
-    <span data-editable contenteditable="${isEditing}">New Skill</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>
-  `;
-  skillsList.appendChild(newSkill);
-  if (isEditing) {
-    newSkill.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newSkill.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addCertification = function() {
-  const certsList = document.getElementById('certsList');
-  const newItem = document.createElement('li');
-  newItem.className = 'info-item removable';
-  newItem.innerHTML = `
-    <span class="info-icon">🏆</span>
-    <span data-editable contenteditable="${isEditing}">New certification</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>
-  `;
-  certsList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addLanguage = function() {
-  const languagesList = document.getElementById('languagesList');
-  const newItem = document.createElement('div');
-  newItem.className = 'language-item removable';
-  newItem.innerHTML = `
-    <div class="language-header">
-      <span data-editable contenteditable="${isEditing}">New Language</span>
-      <span data-editable contenteditable="${isEditing}">Level</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 70%;"></div>
-    </div>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>
-  `;
-  languagesList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelectorAll('[data-editable]').forEach(el => {
-      el.addEventListener('input', debounce(saveData, 300));
-      el.addEventListener('blur', saveData);
-    });
-  }
-  saveData();
-};
-
-window.addPersonalInfo = function() {
-  const personalList = document.getElementById('personalList');
-  const newItem = document.createElement('li');
-  newItem.className = 'info-item removable';
-  newItem.innerHTML = `
-    <span class="info-icon">ℹ️</span>
-    <span data-editable contenteditable="${isEditing}">New personal info</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>
-  `;
-  personalList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addAchievement = function(jobElement) {
-  const achievementsList = jobElement.querySelector('.job-achievements');
-  const newItem = document.createElement('li');
-  newItem.className = 'removable';
-  newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New achievement or responsibility</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>`;
-  achievementsList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addSimpleAchievement = function() {
-  const achievementsList = document.getElementById('achievementsList');
-  const newItem = document.createElement('li');
-  newItem.className = 'removable';
-  newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New achievement</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>`;
-  achievementsList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addResponsibility = function() {
-  const responsibilitiesList = document.getElementById('responsibilitiesList');
-  const newItem = document.createElement('li');
-  newItem.className = 'removable';
-  newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New professional responsibility</span>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>`;
-  responsibilitiesList.appendChild(newItem);
-  if (isEditing) {
-    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
-    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
-  }
-  saveData();
-};
-
-window.addReference = function() {
-  const referencesList = document.getElementById('referencesList');
-  const newReference = document.createElement('div');
-  newReference.className = 'card removable';
-  newReference.innerHTML = `
-    <h3 class="card-title" data-editable contenteditable="${isEditing}">Reference Name</h3>
-    <div class="card-subtitle" data-editable contenteditable="${isEditing}">Position Title</div>
-    <div class="card-meta" data-editable contenteditable="${isEditing}">Organization</div>
-    <div class="card-desc" data-editable contenteditable="${isEditing}">
-      Phone: <span data-editable contenteditable="${isEditing}">+XXX X XXX XXXX</span><br>
-      Email: <span data-editable contenteditable="${isEditing}">email@domain.com</span><br>
-      Relationship: <span data-editable contenteditable="${isEditing}">Professional relationship</span>
-    </div>
-    <button class="remove-btn" onclick="removeItem(this)">×</button>
-  `;
-  referencesList.appendChild(newReference);
-  if (isEditing) {
-    newReference.querySelectorAll('[data-editable]').forEach(el => {
-      el.addEventListener('input', debounce(saveData, 300));
-      el.addEventListener('blur', saveData);
-    });
-  }
-  saveData();
-};
-
-function addJob() {
-  const template = document.getElementById('jobTemplate');
-  const experienceList = document.getElementById('experienceList');
-  const newJob = template.content.cloneNode(true);
-  
-  if (isEditing) {
-    newJob.querySelectorAll('[data-editable]').forEach(el => {
-      el.setAttribute('contenteditable', 'true');
-      el.addEventListener('input', debounce(saveData, 300));
-      el.addEventListener('blur', saveData);
-    });
-  }
-  
-  experienceList.appendChild(newJob);
-  saveData();
-}
-
-function addEducation() {
-  const template = document.getElementById('educationTemplate');
-  const educationList = document.getElementById('educationList');
-  const newEducation = template.content.cloneNode(true);
-  
-  if (isEditing) {
-    newEducation.querySelectorAll('[data-editable]').forEach(el => {
-      el.setAttribute('contenteditable', 'true');
-      el.addEventListener('input', debounce(saveData, 300));
-      el.addEventListener('blur', saveData);
-    });
-  }
-  
-  educationList.appendChild(newEducation);
-  saveData();
-}
-
-function handlePhotoUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  if (!file.type.startsWith('image/')) {
-    alert('Please select an image file.');
-    return;
-  }
-
-  if (file.size > 2 * 1024 * 1024) {
-    alert('Image size must be less than 2MB.');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    photo.src = e.target.result;
-    try {
-      localStorage.setItem(PHOTO_KEY, e.target.result);
-    } catch (err) {
-      console.warn('Could not save photo');
+    // Photo cropper functionality
+    function initPhotoCropper(imageFile) {
+      originalImage = imageFile;
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        cropImage.src = e.target.result;
+        photoModal.classList.add('active');
+        
+        // Reset crop settings
+        currentScale = 1;
+        currentX = 0;
+        currentY = 0;
+        zoomSlider.value = 100;
+        
+        // Center the image
+        cropImage.onload = function() {
+          const areaRect = cropArea.getBoundingClientRect();
+          const imgRect = cropImage.getBoundingClientRect();
+          
+          currentX = (areaRect.width - imgRect.width) / 2;
+          currentY = (areaRect.height - imgRect.height) / 2;
+          
+          updateImageTransform();
+        };
+      };
+      
+      reader.readAsDataURL(imageFile);
     }
-  };
-  reader.readAsDataURL(file);
-}
 
-// Event listeners
-toggleBtn.addEventListener('click', toggleEditing);
-exportBtn.addEventListener('click', exportPDF);
-resetBtn.addEventListener('click', resetCV);
-addJobBtn.addEventListener('click', addJob);
-addEducationBtn.addEventListener('click', addEducation);
-photoBtn.addEventListener('click', () => photoInput.click());
-photoInput.addEventListener('change', handlePhotoUpload);
-
-// Theme selection
-themeColors.forEach(color => {
-  color.addEventListener('click', () => {
-    setTheme(color.dataset.theme);
-  });
-});
-
-// Layout selection
-layoutOptions.forEach(option => {
-  option.addEventListener('click', () => {
-    setLayout(option.dataset.layout);
-  });
-});
-
-// Print event handlers
-window.addEventListener('beforeprint', () => {
-  document.querySelectorAll('.hint, .remove-btn').forEach(el => {
-    el.style.display = 'none';
-  });
-});
-
-window.addEventListener('afterprint', () => {
-  document.querySelectorAll('.hint, .remove-btn').forEach(el => {
-    el.style.display = '';
-  });
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey || e.metaKey) {
-    switch(e.key) {
-      case 'p':
-        e.preventDefault();
-        exportPDF();
-        break;
-      case 's':
-        e.preventDefault();
-        saveData();
-        break;
-      case 'e':
-        e.preventDefault();
-        toggleEditing();
-        break;
+    function updateImageTransform() {
+      cropImage.style.transform = `translate(${currentX}px, ${currentY}px) scale(${currentScale})`;
     }
-  }
-});
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  // Set default photo if none exists
-  if (!photo.src || photo.src === window.location.href) {
-    photo.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc2NGJhMjtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNncmFkKSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMzUiIHI9IjE1IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC44Ii8+PHBhdGggZD0iTTIwIDc1QzMwIDY1IDQwIDY1IDUwIDY1QzYwIDY1IDcwIDY1IDgwIDc1Vjg1SDIwVjc1WiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOCIvPjwvc3ZnPg==';
-  }
+    function closeCropModal() {
+      photoModal.classList.remove('active');
+      cropImage.src = '';
+      originalImage = null;
+    }
 
-  loadData();
-  setupEditableElements();
+    function applyCropSettings() {
+      // Create canvas to crop the image
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const areaRect = cropArea.getBoundingClientRect();
+      
+      // Set canvas size to match photo container (square)
+      canvas.width = 300;
+      canvas.height = 300;
+      
+      // Calculate the source rectangle from the visible crop area
+      const scaleRatio = 300 / areaRect.width;
+      const sourceX = (-currentX) * scaleRatio / currentScale;
+      const sourceY = (-currentY) * scaleRatio / currentScale;
+      const sourceWidth = canvas.width / currentScale;
+      const sourceHeight = canvas.height / currentScale;
+      
+      // Create a temporary image to draw from
+      const tempImg = new Image();
+      tempImg.onload = function() {
+        // Draw the cropped portion
+        ctx.drawImage(
+          tempImg,
+          sourceX, sourceY, sourceWidth, sourceHeight,
+          0, 0, canvas.width, canvas.height
+        );
+        
+        // Convert to data URL and apply to photo
+        const croppedDataURL = canvas.toDataURL('image/jpeg', 0.9);
+        photo.src = croppedDataURL;
+        
+        closeCropModal();
+      };
+      
+      tempImg.src = cropImage.src;
+    }
 
-  // Add smooth transitions for layout changes
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'data-layout') {
-        cv.style.transition = 'all 0.5s ease';
-        setTimeout(() => {
-          cv.style.transition = '';
-        }, 500);
+    // Photo cropper event listeners
+    let startX, startY;
+
+    cropImage.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX - currentX;
+      startY = e.clientY - currentY;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+      updateImageTransform();
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch events for mobile
+    cropImage.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      const touch = e.touches[0];
+      startX = touch.clientX - currentX;
+      startY = touch.clientY - currentY;
+      e.preventDefault();
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      
+      const touch = e.touches[0];
+      currentX = touch.clientX - startX;
+      currentY = touch.clientY - startY;
+      updateImageTransform();
+      e.preventDefault();
+    });
+
+    document.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    // Zoom slider
+    zoomSlider.addEventListener('input', (e) => {
+      currentScale = e.target.value / 100;
+      updateImageTransform();
+    });
+
+    // Mouse wheel zoom
+    cropArea.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      currentScale = Math.max(0.5, Math.min(3, currentScale + delta));
+      zoomSlider.value = currentScale * 100;
+      updateImageTransform();
+    });
+
+    // Modal controls
+    closeCrop.addEventListener('click', closeCropModal);
+    cancelCrop.addEventListener('click', closeCropModal);
+    applyCrop.addEventListener('click', applyCropSettings);
+
+    // Close modal on background click
+    photoModal.addEventListener('click', (e) => {
+      if (e.target === photoModal) {
+        closeCropModal();
       }
     });
-  });
 
-  observer.observe(htmlElement, {
-    attributes: true,
-    attributeFilter: ['data-layout', 'data-theme']
-  });
-});
+    // Add/Remove functions
+    window.removeItem = function(btn) {
+      btn.closest('.removable').remove();
+      // Don't save - keep it temporary
+    };
 
-// Auto-save improvements
-let saveTimeout;
-const autoSave = () => {
-  clearTimeout(saveTimeout);
-  saveTimeout = setTimeout(saveData, 1000);
-};
+    window.addContact = function() {
+      const contactList = document.getElementById('contactList');
+      const newItem = document.createElement('li');
+      newItem.className = 'info-item removable';
+      newItem.innerHTML = `
+        <span class="info-icon">📧</span>
+        <span data-editable contenteditable="${isEditing}">New contact info</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>
+      `;
+      contactList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
 
-// Enhanced focus management for better UX
-cv.addEventListener('focusin', (e) => {
-  if (e.target.matches('[data-editable]')) {
-    e.target.style.transition = 'all 0.3s ease';
-  }
-});
+    window.addSkill = function() {
+      const skillsList = document.getElementById('skillsList');
+      const newSkill = document.createElement('span');
+      newSkill.className = 'skill-pill removable';
+      newSkill.innerHTML = `
+        <span data-editable contenteditable="${isEditing}">New Skill</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>
+      `;
+      skillsList.appendChild(newSkill);
+      if (isEditing) {
+        newSkill.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newSkill.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
 
-cv.addEventListener('focusout', (e) => {
-  if (e.target.matches('[data-editable]')) {
-    setTimeout(() => {
-      e.target.style.transition = '';
-    }, 300);
-  }
-});
+    window.addCertification = function() {
+      const certsList = document.getElementById('certsList');
+      const newItem = document.createElement('li');
+      newItem.className = 'info-item removable';
+      newItem.innerHTML = `
+        <span class="info-icon">🏆</span>
+        <span data-editable contenteditable="${isEditing}">New certification</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>
+      `;
+      certsList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
 
-// Performance optimization for large content
-const intersectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.willChange = 'transform';
-    } else {
-      entry.target.style.willChange = 'auto';
+    window.addLanguage = function() {
+      const languagesList = document.getElementById('languagesList');
+      const newItem = document.createElement('div');
+      newItem.className = 'language-item removable';
+      newItem.innerHTML = `
+        <div class="language-header">
+          <span data-editable contenteditable="${isEditing}">New Language</span>
+          <span data-editable contenteditable="${isEditing}">Level</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 70%;"></div>
+        </div>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>
+      `;
+      languagesList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelectorAll('[data-editable]').forEach(el => {
+          el.addEventListener('input', debounce(saveData, 300));
+          el.addEventListener('blur', saveData);
+        });
+      }
+    };
+
+    window.addPersonalInfo = function() {
+      const personalList = document.getElementById('personalList');
+      const newItem = document.createElement('li');
+      newItem.className = 'info-item removable';
+      newItem.innerHTML = `
+        <span class="info-icon">ℹ️</span>
+        <span data-editable contenteditable="${isEditing}">New personal info</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>
+      `;
+      personalList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
+
+    window.addAchievement = function(jobElement) {
+      const achievementsList = jobElement.querySelector('.job-achievements');
+      const newItem = document.createElement('li');
+      newItem.className = 'removable';
+      newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New achievement or responsibility</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>`;
+      achievementsList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
+
+    window.addSimpleAchievement = function() {
+      const achievementsList = document.getElementById('achievementsList');
+      const newItem = document.createElement('li');
+      newItem.className = 'removable';
+      newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New achievement</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>`;
+      achievementsList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
+
+    window.addResponsibility = function() {
+      const responsibilitiesList = document.getElementById('responsibilitiesList');
+      const newItem = document.createElement('li');
+      newItem.className = 'removable';
+      newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New professional responsibility</span>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>`;
+      responsibilitiesList.appendChild(newItem);
+      if (isEditing) {
+        newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+        newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+      }
+    };
+
+    window.addReference = function() {
+      const referencesList = document.getElementById('referencesList');
+      const newReference = document.createElement('div');
+      newReference.className = 'card removable';
+      newReference.innerHTML = `
+        <h3 class="card-title" data-editable contenteditable="${isEditing}">Reference Name</h3>
+        <div class="card-subtitle" data-editable contenteditable="${isEditing}">Position Title</div>
+        <div class="card-meta" data-editable contenteditable="${isEditing}">Organization</div>
+        <div class="card-desc" data-editable contenteditable="${isEditing}">
+          Phone: <span data-editable contenteditable="${isEditing}">+XXX X XXX XXXX</span><br>
+          Email: <span data-editable contenteditable="${isEditing}">email@domain.com</span><br>
+          Relationship: <span data-editable contenteditable="${isEditing}">Professional relationship</span>
+        </div>
+        <button class="remove-btn" onclick="removeItem(this)">×</button>
+      `;
+      referencesList.appendChild(newReference);
+      if (isEditing) {
+        newReference.querySelectorAll('[data-editable]').forEach(el => {
+          el.addEventListener('input', debounce(saveData, 300));
+          el.addEventListener('blur', saveData);
+        });
+      }
+    };
+
+    function addJob() {
+      const template = document.getElementById('jobTemplate');
+      const experienceList = document.getElementById('experienceList');
+      const newJob = template.content.cloneNode(true);
+      
+      if (isEditing) {
+        newJob.querySelectorAll('[data-editable]').forEach(el => {
+          el.setAttribute('contenteditable', 'true');
+          el.addEventListener('input', debounce(saveData, 300));
+          el.addEventListener('blur', saveData);
+        });
+      }
+      
+      experienceList.appendChild(newJob);
     }
-  });
-});
 
-// Observe animated elements
-document.querySelectorAll('.card, .timeline-item, .skill-pill').forEach(el => {
-  intersectionObserver.observe(el);
-});
+    function addEducation() {
+      const template = document.getElementById('educationTemplate');
+      const educationList = document.getElementById('educationList');
+      const newEducation = template.content.cloneNode(true);
+      
+      if (isEditing) {
+        newEducation.querySelectorAll('[data-editable]').forEach(el => {
+          el.setAttribute('contenteditable', 'true');
+          el.addEventListener('input', debounce(saveData, 300));
+          el.addEventListener('blur', saveData);
+        });
+      }
+      
+      educationList.appendChild(newEducation);
+    }
 
-console.log('🎨 Modern CV Template initialized successfully');
-console.log('📋 Available themes:', ['ocean', 'sunset', 'forest', 'royal', 'aurora', 'cyber']);
-console.log('📐 Available layouts:', ['modern', 'compact', 'centered', 'executive', 'minimal']);
-console.log('👤 Current user: imohmia');
-console.log('📅 Initialized on: 2025-08-16 07:59:58 UTC');
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
 
-</script>
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file.');
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size must be less than 5MB.');
+        return;
+      }
+
+      // Open photo cropper instead of directly setting image
+      initPhotoCropper(file);
+    }
+
+    // Event listeners
+    toggleBtn.addEventListener('click', toggleEditing);
+    exportBtn.addEventListener('click', exportPDF);
+    resetBtn.addEventListener('click', resetCV);
+    addJobBtn.addEventListener('click', addJob);
+    addEducationBtn.addEventListener('click', addEducation);
+    photoBtn.addEventListener('click', () => photoInput.click());
+    photoInput.addEventListener('change', handlePhotoUpload);
+
+    // Theme selection
+    themeColors.forEach(color => {
+      color.addEventListener('click', () => {
+        setTheme(color.dataset.theme);
+      });
+    });
+
+    // Layout selection
+    layoutOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        setLayout(option.dataset.layout);
+      });
+    });
+
+    // Print event handlers
+    window.addEventListener('beforeprint', () => {
+      document.querySelectorAll('.hint, .remove-btn, .photo-modal').forEach(el => {
+        el.style.display = 'none';
+      });
+    });
+
+    window.addEventListener('afterprint', () => {
+      document.querySelectorAll('.hint, .remove-btn').forEach(el => {
+        el.style.display = '';
+      });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+          case 'p':
+            e.preventDefault();
+            exportPDF();
+            break;
+          case 's':
+            e.preventDefault();
+            // saveData(); // Disabled for fresh starts
+            break;
+          case 'e':
+            e.preventDefault();
+            toggleEditing();
+            break;
+        }
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set default photo if none exists
+      if (!photo.src || photo.src === window.location.href) {
+        photo.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc2NGJhMjtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNncmFkKSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMzUiIHI9IjE1IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC44Ii8+PHBhdGggZD0iTTIwIDc1QzMwIDY1IDQwIDY1IDUwIDY1QzYwIDY1IDcwIDY1IDgwIDc1Vjg1SDIwVjc1WiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOCIvPjwvc3ZnPg==';
+      }
+
+      loadData(); // Only loads theme/layout preferences
+      setupEditableElements();
+
+      // Add smooth transitions for layout changes
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'data-layout') {
+            cv.style.transition = 'all 0.5s ease';
+            setTimeout(() => {
+              cv.style.transition = '';
+            }, 500);
+          }
+        });
+      });
+
+      observer.observe(htmlElement, {
+        attributes: true,
+        attributeFilter: ['data-layout', 'data-theme']
+      });
+    });
+
+    // Auto-save improvements (disabled for fresh starts)
+    let saveTimeout;
+    const autoSave = () => {
+      clearTimeout(saveTimeout);
+      // saveTimeout = setTimeout(saveData, 1000); // Disabled
+    };
+
+    // Enhanced focus management for better UX
+    cv.addEventListener('focusin', (e) => {
+      if (e.target.matches('[data-editable]')) {
+        e.target.style.transition = 'all 0.3s ease';
+      }
+    });
+
+    cv.addEventListener('focusout', (e) => {
+      if (e.target.matches('[data-editable]')) {
+        setTimeout(() => {
+          e.target.style.transition = '';
+        }, 300);
+      }
+    });
+
+    // Performance optimization for large content
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.willChange = 'transform';
+        } else {
+          entry.target.style.willChange = 'auto';
+        }
+      });
+    });
+
+    // Observe animated elements
+    document.querySelectorAll('.card, .timeline-item, .skill-pill').forEach(el => {
+      intersectionObserver.observe(el);
+    });
+
+    console.log('🎨 Modern CV Template initialized successfully');
+    console.log('📋 Available themes:', ['ocean', 'sunset', 'forest', 'royal', 'aurora', 'cyber']);
+    console.log('📐 Available layouts:', ['modern', 'compact', 'centered', 'executive', 'minimal']);
+    console.log('🔄 Fresh start mode: Content resets on every page refresh');
+    console.log('📷 Photo cropper: Upload and manually adjust images');
+    console.log('👤 Current user: imohmia');
+
+  </script>
 </body>
 </html>
