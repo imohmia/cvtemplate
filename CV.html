@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ocean" data-layout="modern">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+       MODERN GRADIENT THEME SYSTEM
+    ========================================================= */
+    :root {
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --sidebar-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      --pill-bg: rgba(102, 126, 234, 0.1);
+      --pill-border: rgba(102, 126, 234, 0.3);
+    }
+
+    /* Ocean Theme */
+    [data-theme="ocean"] {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-accent: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      --sidebar-bg: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      --pill-bg: rgba(79, 172, 254, 0.15);
+      --pill-border: rgba(79, 172, 254, 0.4);
+    }
+
+    /* Sunset Theme */
+    [data-theme="sunset"] {
+      --gradient-primary: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      --gradient-secondary: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      --gradient-accent: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      --sidebar-bg: linear-gradient(135deg, #fff8f5 0%, #fef2f2 100%);
+      --pill-bg: rgba(250, 112, 154, 0.15);
+      --pill-border: rgba(250, 112, 154, 0.4);
+    }
+
+    /* Forest Theme */
+    [data-theme="forest"] {
+      --gradient-primary: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+      --gradient-secondary: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      --gradient-accent: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+      --sidebar-bg: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+      --pill-bg: rgba(56, 239, 125, 0.15);
+      --pill-border: rgba(56, 239, 125, 0.4);
+    }
+
+    /* Royal Theme */
+    [data-theme="royal"] {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-accent: linear-gradient(135deg, #5ee7df 0%, #66a6ff 100%);
+      --sidebar-bg: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      --pill-bg: rgba(102, 126, 234, 0.15);
+      --pill-border: rgba(102, 126, 234, 0.4);
+    }
+
+    /* Aurora Theme */
+    [data-theme="aurora"] {
+      --gradient-primary: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+      --gradient-secondary: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      --gradient-accent: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+      --sidebar-bg: linear-gradient(135deg, #fdf4ff 0%, #fef7ff 100%);
+      --pill-bg: rgba(161, 140, 209, 0.15);
+      --pill-border: rgba(161, 140, 209, 0.4);
+    }
+
+    /* Cyber Theme */
+    [data-theme="cyber"] {
+      --gradient-primary: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      --gradient-secondary: linear-gradient(135deg, #ff00cc 0%, #333399 100%);
+      --gradient-accent: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+      --sidebar-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      --pill-bg: rgba(0, 210, 255, 0.15);
+      --pill-border: rgba(0, 210, 255, 0.4);
+    }
+
+    /* =========================================================
+       LAYOUT SYSTEM
+    ========================================================= */
+    
+    /* Modern Layout (Default) */
+    [data-layout="modern"] .cv {
+      display: grid;
+      grid-template-columns: 65mm 1fr;
+      min-height: 287mm;
+    }
+
+    /* Compact Layout */
+    [data-layout="compact"] .cv {
+      display: grid;
+      grid-template-columns: 55mm 1fr;
+      min-height: 287mm;
+    }
+
+    /* Centered Layout */
+    [data-layout="centered"] .cv {
+      display: block;
+    }
+
+    [data-layout="centered"] .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 8mm 15mm;
+      text-align: center;
+    }
+
+    [data-layout="centered"] .main-content {
+      padding: 12mm 15mm;
+    }
+
+    /* Executive Layout */
+    [data-layout="executive"] .cv {
+      display: grid;
+      grid-template-columns: 75mm 1fr;
+      min-height: 287mm;
+    }
+
+    /* Minimal Layout */
+    [data-layout="minimal"] .cv {
+      display: block;
+    }
+
+    [data-layout="minimal"] .sidebar {
+      display: none;
+    }
+
+    [data-layout="minimal"] .main-content {
+      padding: 15mm 20mm;
+    }
+
+    [data-layout="minimal"] .contact-inline {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: 5mm 0;
+      flex-wrap: wrap;
+    }
+
+    /* =========================================================
+       BASE STYLES
+    ========================================================= */
+    * { 
+      box-sizing: border-box; 
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #app {
+      max-width: 210mm;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    /* =========================================================
+       MODERN CONTROLS
+    ========================================================= */
+    #controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: 0 8px 32px var(--shadow);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--paper);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--shadow);
+      border-color: transparent;
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .btn.primary {
+      background: var(--gradient-primary);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn.primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn.danger {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+      color: white;
+      border-color: transparent;
+    }
+
+    .btn.small {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+
+    /* Theme & Layout Selectors */
+    .selector-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .selector-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .theme-colors, .layout-options {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .theme-color {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 2px solid white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .theme-color:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-color.active {
+      border-color: var(--text);
+      transform: scale(1.1);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+    }
+
+    .layout-option {
+      width: 32px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .layout-option:hover {
+      transform: scale(1.1);
+      border-color: var(--text);
+    }
+
+    .layout-option.active {
+      border-color: var(--text);
+      background: var(--gradient-primary);
+    }
+
+    .layout-option::before {
+      content: '';
+      position: absolute;
+      background: var(--border);
+    }
+
+    /* Layout previews */
+    .layout-option[data-layout="modern"]::before {
+      left: 0; top: 0; bottom: 0; width: 40%;
+    }
+    .layout-option[data-layout="compact"]::before {
+      left: 0; top: 0; bottom: 0; width: 30%;
+    }
+    .layout-option[data-layout="centered"]::before {
+      left: 0; top: 0; right: 0; height: 30%;
+    }
+    .layout-option[data-layout="executive"]::before {
+      left: 0; top: 0; bottom: 0; width: 50%;
+    }
+    .layout-option[data-layout="minimal"]::before {
+      display: none;
+    }
+
+    .spacer { flex: 1; }
+
+    /* =========================================================
+       PAPER & CV LAYOUT
+    ========================================================= */
+    .paper {
+      width: 210mm;
+      background: var(--paper);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--border);
+    }
+
+    .accent-bar {
+      height: 8px;
+      background: var(--gradient-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .accent-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* =========================================================
+       SIDEBAR
+    ========================================================= */
+    .sidebar {
+      background: var(--sidebar-bg);
+      padding: 15mm 10mm;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0.3;
+    }
+
+    .photo-container {
+      position: relative;
+      width: 45mm;
+      height: 45mm;
+      margin: 0 auto 8mm;
+    }
+
+    .photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 3px solid transparent;
+      background: var(--gradient-primary);
+      background-clip: border-box;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo:hover {
+      transform: scale(1.02) rotate(2deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .photo-btn {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .photo-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .name {
+      font-size: 20px;
+      font-weight: 900;
+      text-align: center;
+      margin: 0 0 3mm;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: -0.5px;
+    }
+
+    .title {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      color: var(--text-light);
+      margin: 0 0 8mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .sidebar-section {
+      margin: 8mm 0 0;
+    }
+
+    .sidebar-section h3 {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 4mm;
+      padding-bottom: 2mm;
+      border-bottom: 2px solid;
+      border-image: var(--gradient-primary) 1;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 3mm;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      color: var(--text);
+    }
+
+    .info-icon {
+      width: 14px;
+      text-align: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 12px;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-pill {
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 10px;
+      font-weight: 700;
+      position: relative;
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .skill-pill:hover {
+      background: var(--gradient-accent);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .language-item {
+      margin-bottom: 4mm;
+      position: relative;
+    }
+
+    .language-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+    }
+
+    /* Remove buttons */
+    .removable {
+      position: relative;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+      color: white;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .remove-btn:hover {
+      transform: scale(1.2);
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.6);
+    }
+
+    .editing .removable:hover .remove-btn {
+      display: flex;
+    }
+
+    /* =========================================================
+       MAIN CONTENT
+    ========================================================= */
+    .main-content {
+      padding: 15mm 15mm;
+      background: var(--paper);
+    }
+
+    .section {
+      margin: 0 0 8mm;
+      page-break-inside: avoid;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 4mm;
+      padding-bottom: 3mm;
+      border-bottom: 3px solid;
+      border-image: var(--gradient-primary) 1;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .summary {
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      padding: 6mm;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .summary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 4mm;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 3mm;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gradient-primary);
+      border-radius: 1px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 3mm 0 4mm 12mm;
+      page-break-inside: avoid;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 2mm;
+      top: 4mm;
+      width: 4mm;
+      height: 4mm;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px var(--paper), 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .job-title {
+      font-size: 15px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 2mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .job-meta {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin: 0 0 2mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .job-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0 0 3mm;
+    }
+
+    .job-achievements {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .job-achievements li {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 2mm;
+      padding-left: 4mm;
+      position: relative;
+    }
+
+    .job-achievements li::before {
+      content: '▶';
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      font-size: 10px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6mm;
+    }
+
+    .card {
+      background: linear-gradient(135deg, var(--paper) 0%, #fafbfc 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4mm;
+      page-break-inside: avoid;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 2mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin: 0 0 1mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .card-meta {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 2mm;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .simple-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .simple-list li {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 2mm;
+      padding-left: 4mm;
+      position: relative;
+    }
+
+    .simple-list li::before {
+      content: '✦';
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Contact inline for minimal layout */
+    .contact-inline {
+      display: none;
+    }
+
+    [data-layout="minimal"] .contact-inline {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 6mm 0;
+      flex-wrap: wrap;
+    }
+
+    [data-layout="minimal"] .contact-inline .info-item {
+      margin-bottom: 0;
+    }
+
+    /* =========================================================
+       EDITING STATES
+    ========================================================= */
+    [data-editable] {
+      outline: 2px dashed transparent;
+      outline-offset: 2px;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .editing [data-editable]:hover {
+      outline-color: rgba(102, 126, 234, 0.5);
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    .editing [data-editable]:focus {
+      outline-color: rgba(102, 126, 234, 0.8);
+      outline-style: solid;
+      background: rgba(102, 126, 234, 0.08);
+    }
+
+    .hint {
+      background: linear-gradient(135deg, var(--pill-bg), rgba(102, 126, 234, 0.05));
+      border: 1px solid var(--pill-border);
+      border-left: 4px solid var(--gradient-primary);
+      padding: 3mm;
+      margin-top: 4mm;
+      border-radius: 8px;
+      font-size: 11px;
+      color: var(--text-light);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    /* =========================================================
+       PRINT STYLES
+    ========================================================= */
+    @media print {
+      @page {
+        size: A4;
+        margin: 12mm;
+        /* Remove browser default headers/footers */
+        @top-left { content: ""; }
+        @top-center { content: ""; }
+        @top-right { content: ""; }
+        @bottom-left { content: ""; }
+        @bottom-center { content: ""; }
+        @bottom-right { content: ""; }
+      }
+
+      body {
+        background: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Hide unwanted elements */
+      #controls,
+      .hint,
+      .remove-btn,
+      .btn,
+      header,
+      footer,
+      .no-print {
+        display: none !important;
+      }
+
+      #app {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .paper {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        width: auto;
+      }
+
+      .accent-bar::after {
+        display: none;
+      }
+
+      .section {
+        margin-bottom: 6mm;
+      }
+
+      .timeline-item {
+        page-break-inside: avoid;
+      }
+
+      .card {
+        page-break-inside: avoid;
+      }
+
+      .photo-container {
+        width: 40mm;
+        height: 40mm;
+      }
+    }
+
+    /* =========================================================
+       MOBILE RESPONSIVE
+    ========================================================= */
+    @media (max-width: 768px) and (not print) {
+      #app {
+        padding: 0 10px;
+      }
+
+      #controls {
+        padding: 12px;
+        gap: 12px;
+      }
+
+      .cv {
+        grid-template-columns: 1fr !important;
+      }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .theme-colors, .layout-options {
+        gap: 6px;
+      }
+
+      .theme-color {
+        width: 24px;
+        height: 24px;
+      }
+
+      .layout-option {
+        width: 28px;
+        height: 20px;
+      }
+    }
+
+/* Fix for invisible text while editing cards */
+.editing .card [data-editable]:focus,
+.editing .card [data-editable]:hover {
+  -webkit-text-fill-color: var(--text) !important;
+  background: rgba(102, 126, 234, 0.08) !important;
+  color: var(--text) !important;
+}
+
+.editing .card-title:focus,
+.editing .card-subtitle:focus,
+.editing .card-meta:focus {
+  -webkit-text-fill-color: var(--text) !important;
+  background: rgba(102, 126, 234, 0.08) !important;
+  color: var(--text) !important;
+}
+
+/* Ensure text is visible during editing */
+.editing [data-editable]:focus {
+  -webkit-text-fill-color: var(--text) !important;
+  color: var(--text) !important;
+  background: rgba(102, 126, 234, 0.08) !important;
+}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Enhanced Controls -->
+    <div id="controls">
+      <button id="toggleEdit" class="btn">🔓 Edit Mode</button>
+      <button id="addJob" class="btn">➕ Job</button>
+      <button id="addEducation" class="btn">🎓 Education</button>
+      
+      <div class="selector-group">
+        <span class="selector-label">Theme:</span>
+        <div class="theme-colors">
+          <div class="theme-color active" data-theme="ocean" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" title="Ocean"></div>
+          <div class="theme-color" data-theme="sunset" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);" title="Sunset"></div>
+          <div class="theme-color" data-theme="forest" style="background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);" title="Forest"></div>
+          <div class="theme-color" data-theme="royal" style="background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);" title="Royal"></div>
+          <div class="theme-color" data-theme="aurora" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);" title="Aurora"></div>
+          <div class="theme-color" data-theme="cyber" style="background: linear-gradient(135deg, #0f0c29 0%, #24243e 100%);" title="Cyber"></div>
+        </div>
+      </div>
+      
+      <div class="selector-group">
+        <span class="selector-label">Layout:</span>
+        <div class="layout-options">
+          <div class="layout-option active" data-layout="modern" title="Modern"></div>
+          <div class="layout-option" data-layout="compact" title="Compact"></div>
+          <div class="layout-option" data-layout="centered" title="Centered"></div>
+          <div class="layout-option" data-layout="executive" title="Executive"></div>
+          <div class="layout-option" data-layout="minimal" title="Minimal"></div>
+        </div>
+      </div>
+      
+      <div class="spacer"></div>
+      
+      <button id="reset" class="btn danger">🗑️ Reset</button>
+      <button id="export" class="btn primary">📄 Export PDF</button>
+    </div>
+
+    <!-- CV Paper -->
+    <div class="paper">
+      <div class="accent-bar"></div>
+      <div class="cv editing" id="cv">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="photo-container">
+            <img class="photo" id="photo" alt="Professional Photo" />
+            <button class="photo-btn" id="photoBtn">📷</button>
+            <input type="file" id="photoInput" accept="image/*" style="display: none;" />
+          </div>
+
+          <h1 class="name" data-editable contenteditable="true">Sarah Johnson, RN</h1>
+          <div class="title" data-editable contenteditable="true">Emergency Registered Nurse</div>
+
+          <!-- Contact -->
+          <div class="sidebar-section">
+            <h3>Contact</h3>
+            <ul class="info-list" id="contactList">
+              <li class="info-item removable">
+                <span class="info-icon">📞</span>
+                <span data-editable contenteditable="true">+971 50 123 4567</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">✉️</span>
+                <span data-editable contenteditable="true">sarah.johnson@email.com</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">📍</span>
+                <span data-editable contenteditable="true">Dubai, UAE</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">🔗</span>
+                <span data-editable contenteditable="true">linkedin.com/in/sarah-johnson</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+            </ul>
+            <button class="btn small" onclick="addContact()">+ Contact</button>
+          </div>
+
+          <!-- Skills -->
+          <div class="sidebar-section">
+            <h3>Skills</h3>
+            <div class="skill-pills" id="skillsList">
+              <span class="skill-pill removable">
+                <span data-editable contenteditable="true">Emergency Triage</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </span>
+              <span class="skill-pill removable">
+                <span data-editable contenteditable="true">ACLS/BLS</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </span>
+              <span class="skill-pill removable">
+                <span data-editable contenteditable="true">IV Therapy</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </span>
+              <span class="skill-pill removable">
+                <span data-editable contenteditable="true">Patient Care</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </span>
+              <span class="skill-pill removable">
+                <span data-editable contenteditable="true">EMR Systems</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </span>
+            </div>
+            <button class="btn small" onclick="addSkill()" style="margin-top: 3mm;">+ Skill</button>
+          </div>
+
+          <!-- Certifications -->
+          <div class="sidebar-section">
+            <h3>Certifications</h3>
+            <ul class="info-list" id="certsList">
+              <li class="info-item removable">
+                <span class="info-icon">🏆</span>
+                <span data-editable contenteditable="true">BLS, ACLS, PALS</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">📋</span>
+                <span data-editable contenteditable="true">DHA License</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">🩺</span>
+                <span data-editable contenteditable="true">TNCC Certified</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+            </ul>
+            <button class="btn small" onclick="addCertification()">+ Certification</button>
+          </div>
+
+          <!-- Languages -->
+          <div class="sidebar-section">
+            <h3>Languages</h3>
+            <div id="languagesList">
+              <div class="language-item removable">
+                <div class="language-header">
+                  <span data-editable contenteditable="true">English</span>
+                  <span data-editable contenteditable="true">Fluent</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 95%;"></div>
+                </div>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+              <div class="language-item removable">
+                <div class="language-header">
+                  <span data-editable contenteditable="true">Arabic</span>
+                  <span data-editable contenteditable="true">Basic</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+            </div>
+            <button class="btn small" onclick="addLanguage()">+ Language</button>
+          </div>
+
+          <!-- Personal Information -->
+          <div class="sidebar-section">
+            <h3>Personal</h3>
+            <ul class="info-list" id="personalList">
+              <li class="info-item removable">
+                <span class="info-icon">💍</span>
+                <span data-editable contenteditable="true">Single</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">🎂</span>
+                <span data-editable contenteditable="true">Age: 28</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">🏠</span>
+                <span data-editable contenteditable="true">UAE Resident</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="info-item removable">
+                <span class="info-icon">🆔</span>
+                <span data-editable contenteditable="true">User: imohmia</span>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+            </ul>
+            <button class="btn small" onclick="addPersonalInfo()">+ Personal Info</button>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+          <!-- Contact for minimal layout -->
+          <div class="contact-inline" id="contactInline">
+            <div class="info-item">
+              <span class="info-icon">📞</span>
+              <span data-editable contenteditable="true">+971 50 123 4567</span>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">✉️</span>
+              <span data-editable contenteditable="true">sarah.johnson@email.com</span>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">📍</span>
+              <span data-editable contenteditable="true">Dubai, UAE</span>
+            </div>
+          </div>
+
+          <!-- Professional Summary -->
+          <div class="section">
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary" data-editable contenteditable="true">
+              Dedicated Emergency Registered Nurse with 5+ years of experience in high-acuity emergency departments. Proven expertise in patient triage, emergency protocols, and critical care management. Strong advocate for patient safety and quality improvement initiatives.
+            </div>
+            <div class="hint">💡 Click any text to edit. Choose themes and layouts above. Export creates a professional PDF with the same layout you see here.</div>
+          </div>
+
+          <!-- Experience -->
+          <div class="section">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline" id="experienceList">
+              <div class="timeline-item removable">
+                <h3 class="job-title" data-editable contenteditable="true">Emergency Registered Nurse</h3>
+                <div class="job-meta" data-editable contenteditable="true">Dubai Hospital • Dubai, UAE • 2022 – Present</div>
+                <div class="job-desc" data-editable contenteditable="true">
+                  Provide comprehensive emergency nursing care in 120-bed emergency department. Manage patient triage, medication administration, and family communication.
+                </div>
+                <ul class="job-achievements">
+                  <li class="removable" data-editable contenteditable="true">Perform ESI triage assessment for 100+ patients daily
+                    <button class="remove-btn" onclick="removeItem(this)">×</button>
+                  </li>
+                  <li class="removable" data-editable contenteditable="true">Administer emergency medications and IV therapy
+                    <button class="remove-btn" onclick="removeItem(this)">×</button>
+                  </li>
+                  <li class="removable" data-editable contenteditable="true">Coordinate care with multidisciplinary teams
+                    <button class="remove-btn" onclick="removeItem(this)">×</button>
+                  </li>
+                </ul>
+                <button class="btn small" onclick="addAchievement(this)" style="margin-top: 2mm;">+ Achievement</button>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+
+              <div class="timeline-item removable">
+                <h3 class="job-title" data-editable contenteditable="true">Staff Nurse – ICU</h3>
+                <div class="job-meta" data-editable contenteditable="true">City Medical Center • Dubai, UAE • 2019 – 2022</div>
+                <div class="job-desc" data-editable contenteditable="true">
+                  Provided critical care nursing for ventilated and post-surgical patients in 24-bed intensive care unit.
+                </div>
+                <ul class="job-achievements">
+                  <li class="removable" data-editable contenteditable="true">Managed ventilator settings and hemodynamic monitoring
+                    <button class="remove-btn" onclick="removeItem(this)">×</button>
+                  </li>
+                  <li class="removable" data-editable contenteditable="true">Administered vasoactive medications with precision
+                    <button class="remove-btn" onclick="removeItem(this)">×</button>
+                  </li>
+                </ul>
+                <button class="btn small" onclick="addAchievement(this)" style="margin-top: 2mm;">+ Achievement</button>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="grid-2" id="educationList">
+              <div class="card removable">
+                <h3 class="card-title" data-editable contenteditable="true">Bachelor of Science in Nursing</h3>
+                <div class="card-subtitle" data-editable contenteditable="true">University of Dubai</div>
+                <div class="card-meta" data-editable contenteditable="true">2015 – 2019</div>
+                <div class="card-desc" data-editable contenteditable="true">Graduated with honors. Clinical rotations in ER, ICU, and Medical-Surgical units.</div>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+
+              <div class="card removable">
+                <h3 class="card-title" data-editable contenteditable="true">Advanced Cardiac Life Support</h3>
+                <div class="card-subtitle" data-editable contenteditable="true">American Heart Association</div>
+                <div class="card-meta" data-editable contenteditable="true">2023 – Present</div>
+                <div class="card-desc" data-editable contenteditable="true">Current certification in advanced cardiac life support protocols.</div>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Achievements -->
+          <div class="section">
+            <h2 class="section-title">Key Achievements</h2>
+            <ul class="simple-list" id="achievementsList">
+              <li class="removable" data-editable contenteditable="true">Employee of the Quarter – Emergency Department (2024)
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="removable" data-editable contenteditable="true">Reduced patient wait times by 20% through process improvements
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="removable" data-editable contenteditable="true">Mentored 8+ new graduate nurses successfully
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+            </ul>
+            <button class="btn small" onclick="addSimpleAchievement()">+ Achievement</button>
+          </div>
+
+          <!-- Professional Responsibilities -->
+          <div class="section">
+            <h2 class="section-title">Professional Responsibilities</h2>
+            <ul class="simple-list" id="responsibilitiesList">
+              <li class="removable" data-editable contenteditable="true">Lead emergency response protocols and coordinate with medical teams
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="removable" data-editable contenteditable="true">Supervise and mentor junior nursing staff in clinical procedures
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="removable" data-editable contenteditable="true">Implement quality assurance measures and patient safety protocols
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+              <li class="removable" data-editable contenteditable="true">Maintain accurate medical records and documentation
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </li>
+            </ul>
+            <button class="btn small" onclick="addResponsibility()">+ Responsibility</button>
+          </div>
+
+          <!-- Professional References -->
+          <div class="section">
+            <h2 class="section-title">Professional References</h2>
+            <div class="grid-2" id="referencesList">
+              <div class="card removable">
+                <h3 class="card-title" data-editable contenteditable="true">Dr. Ahmed Hassan, MD</h3>
+                <div class="card-subtitle" data-editable contenteditable="true">Emergency Department Director</div>
+                <div class="card-meta" data-editable contenteditable="true">Dubai Hospital</div>
+                <div class="card-desc" data-editable contenteditable="true">
+                  Phone: <span data-editable contenteditable="true">+971 4 XXX XXXX</span><br>
+                  Email: <span data-editable contenteditable="true">a.hassan@dubaihospital.ae</span><br>
+                  Relationship: Direct Supervisor (3 years)
+                </div>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+
+              <div class="card removable">
+                <h3 class="card-title" data-editable contenteditable="true">Sarah Al-Mansouri, RN, MSN</h3>
+                <div class="card-subtitle" data-editable contenteditable="true">Senior Nursing Manager</div>
+                <div class="card-meta" data-editable contenteditable="true">City Medical Center</div>
+                <div class="card-desc" data-editable contenteditable="true">
+                  Phone: <span data-editable contenteditable="true">+971 4 XXX XXXX</span><br>
+                  Email: <span data-editable contenteditable="true">s.almansouri@citymed.ae</span><br>
+                  Relationship: Former Manager (4 years)
+                </div>
+                <button class="remove-btn" onclick="removeItem(this)">×</button>
+              </div>
+            </div>
+            <button class="btn small" onclick="addReference()">+ Reference</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <template id="jobTemplate">
+    <div class="timeline-item removable">
+      <h3 class="job-title" data-editable contenteditable="true">Job Title</h3>
+      <div class="job-meta" data-editable contenteditable="true">Company • Location • Year – Year</div>
+      <div class="job-desc" data-editable contenteditable="true">Brief description of your role and responsibilities.</div>
+      <ul class="job-achievements">
+        <li class="removable" data-editable contenteditable="true">Key achievement or responsibility
+          <button class="remove-btn" onclick="removeItem(this)">×</button>
+        </li>
+      </ul>
+      <button class="btn small" onclick="addAchievement(this)" style="margin-top: 2mm;">+ Achievement</button>
+      <button class="remove-btn" onclick="removeItem(this)">×</button>
+    </div>
+  </template>
+
+  <template id="educationTemplate">
+    <div class="card removable">
+      <h3 class="card-title" data-editable contenteditable="true">Degree Title</h3>
+      <div class="card-subtitle" data-editable contenteditable="true">Institution Name</div>
+      <div class="card-meta" data-editable contenteditable="true">Year – Year</div>
+      <div class="card-desc" data-editable contenteditable="true">Brief description or relevant details.</div>
+      <button class="remove-btn" onclick="removeItem(this)">×</button>
+    </div>
+  </template>
+
+  <script>
+    // Global variables
+    let isEditing = true;
+    const STORAGE_KEY = 'modern_cv_data_v7';
+    const THEME_KEY = 'modern_cv_theme_v7';
+    const LAYOUT_KEY = 'modern_cv_layout_v7';
+    const PHOTO_KEY = 'modern_cv_photo_v7';
+
+    // DOM elements
+    const cv = document.getElementById('cv');
+    const htmlElement = document.documentElement;
+    const toggleBtn = document.getElementById('toggleEdit');
+    const exportBtn = document.getElementById('export');
+    const resetBtn = document.getElementById('reset');
+    const addJobBtn = document.getElementById('addJob');
+    const addEducationBtn = document.getElementById('addEducation');
+    const photo = document.getElementById('photo');
+    const photoBtn = document.getElementById('photoBtn');
+    const photoInput = document.getElementById('photoInput');
+    const themeColors = document.querySelectorAll('.theme-color');
+    const layoutOptions = document.querySelectorAll('.layout-option');
+
+    // Utility functions
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, cv.innerHTML);
+      } catch (e) {
+        console.warn('Could not save data to localStorage');
+      }
+    }
+
+    function loadData() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          cv.innerHTML = saved;
+          setupEditableElements();
+        }
+
+        const savedPhoto = localStorage.getItem(PHOTO_KEY);
+        if (savedPhoto) {
+          photo.src = savedPhoto;
+        }
+
+        const savedTheme = localStorage.getItem(THEME_KEY) || 'ocean';
+        setTheme(savedTheme);
+
+        const savedLayout = localStorage.getItem(LAYOUT_KEY) || 'modern';
+        setLayout(savedLayout);
+      } catch (e) {
+        console.warn('Could not load data from localStorage');
+      }
+    }
+
+    function setupEditableElements() {
+      cv.querySelectorAll('[data-editable]').forEach(el => {
+        el.setAttribute('contenteditable', isEditing);
+        if (isEditing) {
+          el.addEventListener('input', debounce(saveData, 300));
+          el.addEventListener('blur', saveData);
+        }
+      });
+    }
+
+    function setTheme(themeName) {
+      htmlElement.setAttribute('data-theme', themeName);
+      themeColors.forEach(color => {
+        color.classList.toggle('active', color.dataset.theme === themeName);
+      });
+      try {
+        localStorage.setItem(THEME_KEY, themeName);
+      } catch (e) {
+        console.warn('Could not save theme');
+      }
+    }
+
+    function setLayout(layoutName) {
+      htmlElement.setAttribute('data-layout', layoutName);
+      layoutOptions.forEach(option => {
+        option.classList.toggle('active', option.dataset.layout === layoutName);
+      });
+      try {
+        localStorage.setItem(LAYOUT_KEY, layoutName);
+      } catch (e) {
+        console.warn('Could not save layout');
+      }
+    }
+
+    function toggleEditing() {
+      isEditing = !isEditing;
+      cv.classList.toggle('editing', isEditing);
+      toggleBtn.innerHTML = isEditing ? '🔓 Edit Mode' : '🔒 View Mode';
+      setupEditableElements();
+    }
+
+    function exportPDF() {
+      // Hide all editing elements
+      const editingElements = document.querySelectorAll('.hint, .remove-btn, #controls .btn');
+      editingElements.forEach(el => el.style.display = 'none');
+      
+      // Hide any potential header/footer elements
+      const unwantedElements = document.querySelectorAll('header, footer, .no-print, .print-hide');
+      unwantedElements.forEach(el => el.style.display = 'none');
+      
+      // Temporarily disable editing mode
+      const wasEditing = isEditing;
+      if (isEditing) {
+        cv.classList.remove('editing');
+        cv.querySelectorAll('[data-editable]').forEach(el => {
+          el.setAttribute('contenteditable', 'false');
+        });
+      }
+
+      // Add clean print styles
+      const printStyles = document.createElement('style');
+      printStyles.innerHTML = `
+        @media print {
+          @page {
+            size: A4;
+            margin: 12mm;
+          }
+          html, body {
+            background: white !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+        }
+      `;
+      document.head.appendChild(printStyles);
+
+      // Print with a slight delay to ensure styles are applied
+      setTimeout(() => {
+        window.print();
+      }, 100);
+
+      // Restore everything after printing
+      setTimeout(() => {
+        editingElements.forEach(el => el.style.display = '');
+        unwantedElements.forEach(el => el.style.display = '');
+        document.head.removeChild(printStyles);
+        
+        if (wasEditing) {
+          cv.classList.add('editing');
+          setupEditableElements();
+        }
+      }, 1000);
+    }
+
+    function resetCV() {
+      if (confirm('Are you sure you want to reset the entire CV? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(PHOTO_KEY);
+        localStorage.removeItem(THEME_KEY);
+        localStorage.removeItem(LAYOUT_KEY);
+        location.reload();
+      }
+    }
+
+// Add/Remove functions
+window.removeItem = function(btn) {
+  btn.closest('.removable').remove();
+  saveData();
+};
+
+window.addContact = function() {
+  const contactList = document.getElementById('contactList');
+  const newItem = document.createElement('li');
+  newItem.className = 'info-item removable';
+  newItem.innerHTML = `
+    <span class="info-icon">📧</span>
+    <span data-editable contenteditable="${isEditing}">New contact info</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>
+  `;
+  contactList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addSkill = function() {
+  const skillsList = document.getElementById('skillsList');
+  const newSkill = document.createElement('span');
+  newSkill.className = 'skill-pill removable';
+  newSkill.innerHTML = `
+    <span data-editable contenteditable="${isEditing}">New Skill</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>
+  `;
+  skillsList.appendChild(newSkill);
+  if (isEditing) {
+    newSkill.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newSkill.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addCertification = function() {
+  const certsList = document.getElementById('certsList');
+  const newItem = document.createElement('li');
+  newItem.className = 'info-item removable';
+  newItem.innerHTML = `
+    <span class="info-icon">🏆</span>
+    <span data-editable contenteditable="${isEditing}">New certification</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>
+  `;
+  certsList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addLanguage = function() {
+  const languagesList = document.getElementById('languagesList');
+  const newItem = document.createElement('div');
+  newItem.className = 'language-item removable';
+  newItem.innerHTML = `
+    <div class="language-header">
+      <span data-editable contenteditable="${isEditing}">New Language</span>
+      <span data-editable contenteditable="${isEditing}">Level</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 70%;"></div>
+    </div>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>
+  `;
+  languagesList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelectorAll('[data-editable]').forEach(el => {
+      el.addEventListener('input', debounce(saveData, 300));
+      el.addEventListener('blur', saveData);
+    });
+  }
+  saveData();
+};
+
+window.addPersonalInfo = function() {
+  const personalList = document.getElementById('personalList');
+  const newItem = document.createElement('li');
+  newItem.className = 'info-item removable';
+  newItem.innerHTML = `
+    <span class="info-icon">ℹ️</span>
+    <span data-editable contenteditable="${isEditing}">New personal info</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>
+  `;
+  personalList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addAchievement = function(jobElement) {
+  const achievementsList = jobElement.querySelector('.job-achievements');
+  const newItem = document.createElement('li');
+  newItem.className = 'removable';
+  newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New achievement or responsibility</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>`;
+  achievementsList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addSimpleAchievement = function() {
+  const achievementsList = document.getElementById('achievementsList');
+  const newItem = document.createElement('li');
+  newItem.className = 'removable';
+  newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New achievement</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>`;
+  achievementsList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addResponsibility = function() {
+  const responsibilitiesList = document.getElementById('responsibilitiesList');
+  const newItem = document.createElement('li');
+  newItem.className = 'removable';
+  newItem.innerHTML = `<span data-editable contenteditable="${isEditing}">New professional responsibility</span>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>`;
+  responsibilitiesList.appendChild(newItem);
+  if (isEditing) {
+    newItem.querySelector('[data-editable]').addEventListener('input', debounce(saveData, 300));
+    newItem.querySelector('[data-editable]').addEventListener('blur', saveData);
+  }
+  saveData();
+};
+
+window.addReference = function() {
+  const referencesList = document.getElementById('referencesList');
+  const newReference = document.createElement('div');
+  newReference.className = 'card removable';
+  newReference.innerHTML = `
+    <h3 class="card-title" data-editable contenteditable="${isEditing}">Reference Name</h3>
+    <div class="card-subtitle" data-editable contenteditable="${isEditing}">Position Title</div>
+    <div class="card-meta" data-editable contenteditable="${isEditing}">Organization</div>
+    <div class="card-desc" data-editable contenteditable="${isEditing}">
+      Phone: <span data-editable contenteditable="${isEditing}">+XXX X XXX XXXX</span><br>
+      Email: <span data-editable contenteditable="${isEditing}">email@domain.com</span><br>
+      Relationship: <span data-editable contenteditable="${isEditing}">Professional relationship</span>
+    </div>
+    <button class="remove-btn" onclick="removeItem(this)">×</button>
+  `;
+  referencesList.appendChild(newReference);
+  if (isEditing) {
+    newReference.querySelectorAll('[data-editable]').forEach(el => {
+      el.addEventListener('input', debounce(saveData, 300));
+      el.addEventListener('blur', saveData);
+    });
+  }
+  saveData();
+};
+
+function addJob() {
+  const template = document.getElementById('jobTemplate');
+  const experienceList = document.getElementById('experienceList');
+  const newJob = template.content.cloneNode(true);
+  
+  if (isEditing) {
+    newJob.querySelectorAll('[data-editable]').forEach(el => {
+      el.setAttribute('contenteditable', 'true');
+      el.addEventListener('input', debounce(saveData, 300));
+      el.addEventListener('blur', saveData);
+    });
+  }
+  
+  experienceList.appendChild(newJob);
+  saveData();
+}
+
+function addEducation() {
+  const template = document.getElementById('educationTemplate');
+  const educationList = document.getElementById('educationList');
+  const newEducation = template.content.cloneNode(true);
+  
+  if (isEditing) {
+    newEducation.querySelectorAll('[data-editable]').forEach(el => {
+      el.setAttribute('contenteditable', 'true');
+      el.addEventListener('input', debounce(saveData, 300));
+      el.addEventListener('blur', saveData);
+    });
+  }
+  
+  educationList.appendChild(newEducation);
+  saveData();
+}
+
+function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith('image/')) {
+    alert('Please select an image file.');
+    return;
+  }
+
+  if (file.size > 2 * 1024 * 1024) {
+    alert('Image size must be less than 2MB.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    photo.src = e.target.result;
+    try {
+      localStorage.setItem(PHOTO_KEY, e.target.result);
+    } catch (err) {
+      console.warn('Could not save photo');
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+// Event listeners
+toggleBtn.addEventListener('click', toggleEditing);
+exportBtn.addEventListener('click', exportPDF);
+resetBtn.addEventListener('click', resetCV);
+addJobBtn.addEventListener('click', addJob);
+addEducationBtn.addEventListener('click', addEducation);
+photoBtn.addEventListener('click', () => photoInput.click());
+photoInput.addEventListener('change', handlePhotoUpload);
+
+// Theme selection
+themeColors.forEach(color => {
+  color.addEventListener('click', () => {
+    setTheme(color.dataset.theme);
+  });
+});
+
+// Layout selection
+layoutOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    setLayout(option.dataset.layout);
+  });
+});
+
+// Print event handlers
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('.hint, .remove-btn').forEach(el => {
+    el.style.display = 'none';
+  });
+});
+
+window.addEventListener('afterprint', () => {
+  document.querySelectorAll('.hint, .remove-btn').forEach(el => {
+    el.style.display = '';
+  });
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.metaKey) {
+    switch(e.key) {
+      case 'p':
+        e.preventDefault();
+        exportPDF();
+        break;
+      case 's':
+        e.preventDefault();
+        saveData();
+        break;
+      case 'e':
+        e.preventDefault();
+        toggleEditing();
+        break;
+    }
+  }
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  // Set default photo if none exists
+  if (!photo.src || photo.src === window.location.href) {
+    photo.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc2NGJhMjtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0idXJsKCNncmFkKSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMzUiIHI9IjE1IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC44Ii8+PHBhdGggZD0iTTIwIDc1QzMwIDY1IDQwIDY1IDUwIDY1QzYwIDY1IDcwIDY1IDgwIDc1Vjg1SDIwVjc1WiIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOCIvPjwvc3ZnPg==';
+  }
+
+  loadData();
+  setupEditableElements();
+
+  // Add smooth transitions for layout changes
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'data-layout') {
+        cv.style.transition = 'all 0.5s ease';
+        setTimeout(() => {
+          cv.style.transition = '';
+        }, 500);
+      }
+    });
+  });
+
+  observer.observe(htmlElement, {
+    attributes: true,
+    attributeFilter: ['data-layout', 'data-theme']
+  });
+});
+
+// Auto-save improvements
+let saveTimeout;
+const autoSave = () => {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(saveData, 1000);
+};
+
+// Enhanced focus management for better UX
+cv.addEventListener('focusin', (e) => {
+  if (e.target.matches('[data-editable]')) {
+    e.target.style.transition = 'all 0.3s ease';
+  }
+});
+
+cv.addEventListener('focusout', (e) => {
+  if (e.target.matches('[data-editable]')) {
+    setTimeout(() => {
+      e.target.style.transition = '';
+    }, 300);
+  }
+});
+
+// Performance optimization for large content
+const intersectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.willChange = 'transform';
+    } else {
+      entry.target.style.willChange = 'auto';
+    }
+  });
+});
+
+// Observe animated elements
+document.querySelectorAll('.card, .timeline-item, .skill-pill').forEach(el => {
+  intersectionObserver.observe(el);
+});
+
+console.log('🎨 Modern CV Template initialized successfully');
+console.log('📋 Available themes:', ['ocean', 'sunset', 'forest', 'royal', 'aurora', 'cyber']);
+console.log('📐 Available layouts:', ['modern', 'compact', 'centered', 'executive', 'minimal']);
+console.log('👤 Current user: imohmia');
+console.log('📅 Initialized on: 2025-08-16 07:59:58 UTC');
+
+</script>
+</body>
+</html>
