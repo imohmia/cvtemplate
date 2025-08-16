@@ -2,7 +2,7 @@
 <html lang="en" data-theme="ocean" data-layout="modern">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=1024, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CV</title>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -1172,14 +1172,86 @@
   .filters-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
   .filter-chip { padding:5px 7px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-size:9px; border-radius:6px; cursor:pointer; font-weight:600; }
   .filter-chip:hover,.filter-chip.active { background:var(--gradient-accent); color:#fff; border-color:transparent; }
-  /* Responsive adjustments */
-  @media (max-width:1400px){ .editor-shell { grid-template-columns:1fr 320px; } }
-  @media (max-width:1200px){ .editor-shell { grid-template-columns:1fr 300px; } }
-  @media (max-width:980px){ .editor-shell { grid-template-columns:1fr; } .editor-sidebar { order:-1; flex-direction:row; overflow-x:auto; height:auto; } .sidebar-scroll { flex-direction:row; gap:10px; } .side-section { min-width:180px; flex:0 0 auto; } }
-  @media (max-width:620px){ .quick-bar { grid-template-columns:1fr; } .actions-bar { flex-wrap:wrap; justify-content:center; } }
+  /* Desktop layout maintained for all screen sizes */
   /* End redesigned shell */
     * { 
       box-sizing: border-box; 
+    }
+    
+    /* Force desktop layout on all devices */
+    body {
+      min-width: 1200px !important;
+      overflow-x: auto;
+    }
+    
+    #app {
+      min-width: 1200px !important;
+      overflow-x: visible;
+    }
+    
+    .cv {
+      min-width: 280mm !important;
+    }
+    
+    /* Ensure animations and transitions work on all screen sizes */
+    * {
+      animation-play-state: running !important;
+    }
+    
+    /* Preserve all transitions and transforms */
+    .cv,
+    .paper,
+    .btn,
+    .photo,
+    .skill-pill,
+    .theme-card,
+    .layout-card,
+    .selector-label,
+    .remove-btn,
+    .crop-btn,
+    .action-btn,
+    .shape-option,
+    .preset-btn,
+    .rotate-btn,
+    .selector-window,
+    .window-backdrop,
+    .loading-overlay {
+      transition: all 0.3s ease !important;
+    }
+    
+    /* Keep hover transforms working */
+    .btn:hover {
+      transform: translateY(-2px) !important;
+    }
+    
+    .photo:hover {
+      transform: scale(1.02) rotate(2deg) !important;
+    }
+    
+    .skill-pill:hover {
+      transform: translateY(-2px) !important;
+    }
+    
+    .theme-card:hover,
+    .layout-card:hover {
+      transform: translateY(-4px) scale(1.02) !important;
+    }
+    
+    /* Layout change animations */
+    .cv {
+      transition: all 0.5s ease !important;
+    }
+    
+    .sidebar {
+      transition: all 0.4s ease !important;
+    }
+    
+    .main-content {
+      transition: all 0.4s ease !important;
+    }
+    
+    .section {
+      transition: all 0.3s ease !important;
     }
     
     html, body {
@@ -1194,7 +1266,7 @@
     }
 
     #app {
-      max-width: 210mm;
+      max-width: 280mm;
       margin: 20px auto;
       padding: 0 15px;
     }
@@ -1210,13 +1282,15 @@
       backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 16px 20px;
+      padding:  20px;
       margin-bottom: 24px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 5px;
       flex-wrap: wrap;
       box-shadow: 0 8px 32px var(--shadow);
+      width: calc(290mm - 30px);
+      max-width: calc(290mm - 30px);
     }
 
     .btn {
@@ -1513,7 +1587,7 @@
        PAPER & CV LAYOUT
     ========================================================= */
     .paper {
-      width: 210mm;
+      width: 280mm;
       background: var(--paper);
       border-radius: 20px;
       overflow: hidden;
@@ -1542,6 +1616,46 @@
     @keyframes shimmer {
       0% { left: -100%; }
       100% { left: 100%; }
+    }
+
+    /* Force animations to work on all devices - but preserve main page transitions */
+    @media (prefers-reduced-motion: reduce) {
+      /* Keep essential animations */
+      .accent-bar::after {
+        animation: shimmer 3s infinite !important;
+      }
+      
+      .loading-spinner {
+        animation: spin 1s linear infinite !important;
+      }
+      
+      .control-slider {
+        animation: shimmer 3s ease-in-out infinite !important;
+      }
+      
+      /* Keep layout and hover transitions */
+      .cv,
+      .sidebar,
+      .main-content,
+      .btn,
+      .photo,
+      .skill-pill,
+      .theme-card,
+      .layout-card,
+      .selector-window,
+      .window-backdrop {
+        transition: all 0.3s ease !important;
+      }
+      
+      .btn:hover {
+        transition: all 0.3s ease !important;
+        transform: translateY(-2px) !important;
+      }
+      
+      .photo:hover {
+        transition: all 0.3s ease !important;
+        transform: scale(1.02) rotate(2deg) !important;
+      }
     }
 
     /* =========================================================
@@ -2361,28 +2475,34 @@
         display: none;
       }
 
-      /* Compact spacing */
+      /* Flexible pagination - allow individual items to break across pages */
       .section {
         margin-bottom: 4mm !important;
         padding: 0 !important;
+        page-break-inside: auto !important; /* Allow sections to break naturally */
       }
 
       .section-title {
         font-size: 11pt !important;
         margin-bottom: 2mm !important;
         padding: 1mm 0 !important;
+        page-break-after: avoid !important; /* Keep title with following content */
       }
 
       .timeline-item {
-        page-break-inside: avoid;
+        page-break-inside: auto !important; /* Allow items to break if needed */
         margin-bottom: 3mm !important;
         padding: 0 !important;
+        orphans: 2 !important; /* Minimum 2 lines at bottom of page */
+        widows: 2 !important; /* Minimum 2 lines at top of page */
       }
 
       .card {
-        page-break-inside: avoid;
+        page-break-inside: auto !important; /* Allow cards to break if needed */
         margin-bottom: 2mm !important;
         padding: 2mm !important;
+        orphans: 2 !important;
+        widows: 2 !important;
       }
 
       .photo-container {
@@ -2457,10 +2577,12 @@
         margin: 0 0 2mm 0 !important;
       }
 
-      /* Timeline and Experience formatting for print */
+      /* Timeline and Experience formatting for print - flexible pagination */
       .timeline-item {
         margin-bottom: 4mm !important;
-        page-break-inside: avoid !important;
+        page-break-inside: auto !important; /* Allow natural breaking */
+        orphans: 2 !important;
+        widows: 2 !important;
       }
 
       /* Keep timeline lines but move them much further left */
@@ -2598,216 +2720,9 @@
     }
 
     /* =========================================================
-       MOBILE RESPONSIVE
+       DESKTOP ONLY - ALL SCREEN SIZES USE SAME LAYOUT
     ========================================================= */
-    @media screen and (max-width: 768px) {
-      #app {
-        padding: 0 10px;
-      }
-
-      #controls {
-        padding: 12px;
-        gap: 12px;
-      }
-
-      .cv {
-        grid-template-columns: 1fr !important;
-      }
-
-      .sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .theme-colors, .layout-options {
-        gap: 6px;
-      }
-
-      .theme-color {
-        width: 24px;
-        height: 24px;
-      }
-
-      .layout-option {
-        width: 28px;
-        height: 20px;
-      }
-
-      .photo-modal .crop-container {
-        width: 95%;
-        padding: 12px;
-        max-height: 95vh;
-      }
-
-      .crop-workspace {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .crop-area {
-        height: 200px;
-        min-height: 200px;
-        max-height: 250px;
-      }
-
-      .crop-preview {
-        min-width: auto;
-        max-width: none;
-      }
-
-      .crop-controls {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        padding: 10px;
-        max-height: 200px;
-      }
-
-      .preset-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3px;
-      }
-
-      .preset-btn {
-        padding: 3px 4px;
-        font-size: 8px;
-      }
-
-      .crop-controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .zoom-control {
-        justify-content: center;
-      }
-    }
-
-    /* Medium screens (tablets) */
-    @media screen and (max-width: 1200px) and (min-width: 769px) {
-      .photo-modal .crop-container {
-        width: 90%;
-        max-width: 900px;
-        padding: 16px;
-      }
-
-      .crop-workspace {
-        gap: 15px;
-      }
-
-      .crop-area {
-        max-height: 300px;
-      }
-
-      .crop-controls {
-        max-height: 220px;
-        gap: 12px;
-      }
-    }
-
-    /* Laptop screens */
-    @media screen and (max-width: 1366px) and (min-width: 1025px) {
-      .photo-modal .crop-container {
-        width: 60%;
-        max-width: 450px;
-        max-height: 60vh;
-        padding: 10px;
-      }
-
-      .crop-workspace {
-        gap: 6px;
-      }
-
-      .crop-area {
-        max-height: 150px;
-        min-height: 140px;
-      }
-
-      .crop-controls {
-        max-height: 120px;
-        gap: 4px;
-        padding: 6px;
-      }
-
-      .crop-preview {
-        min-width: 100px;
-        max-width: 130px;
-      }
-
-      .preset-grid {
-        gap: 2px;
-      }
-
-      .preset-btn {
-        padding: 2px 3px;
-        font-size: 7px;
-      }
-    }
-
-    /* Small phones */
-    @media screen and (max-width: 480px) {
-      .photo-modal .crop-container {
-        width: 98%;
-        padding: 8px;
-        max-height: 98vh;
-      }
-
-      .crop-area {
-        height: 180px;
-        max-height: 180px;
-      }
-
-      .crop-controls {
-        grid-template-columns: 1fr;
-        max-height: 180px;
-        overflow-y: auto;
-        gap: 6px;
-      }
-
-      .preset-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2px;
-      }
-
-      .preset-btn {
-        padding: 2px 3px;
-        font-size: 7px;
-      }
-
-      .control-group {
-        margin-bottom: 6px;
-      }
-
-      .control-group label {
-        font-size: 10px;
-      }
-
-      input[type="range"] {
-        height: 12px;
-      }
-
-      .enhancement-section h4 {
-        font-size: 11px;
-        margin-bottom: 4px;
-      }
-    }
-
-    /* Very large screens */
-    @media screen and (min-width: 1400px) {
-      .photo-modal .crop-container {
-        max-width: 550px;
-        padding: 14px;
-        max-height: 65vh;
-      }
-
-      .crop-area {
-        max-height: 180px;
-      }
-
-      .crop-controls {
-        max-height: 140px;
-        padding: 10px;
-      }
-    }
+    /* Removed mobile responsive breakpoints to maintain desktop layout on all devices */
 
 /* Fix for invisible text while editing cards */
 .editing .card [data-editable]:focus,
